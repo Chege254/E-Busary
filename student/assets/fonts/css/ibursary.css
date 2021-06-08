@@ -1,0 +1,95 @@
+/*
+<!--== AUTHOR (c)frankline_bwire ==-->
+<!--== @knightlypro ==-->
+<!--== Notchcom_Solutions_Kenya ==-->
+*/
+#header_row{
+  background-color:rgb(44,62,80);
+  padding-top:10px;
+  color:white;
+  margin-bottom:5px;
+}
+
+#logo{
+  color:white;
+  font-family:cursive;
+}
+
+#logo_col{
+  border-radius:10px;
+}
+
+#footer{
+  background-color:rgb(44,62,80);
+  color:white;
+  height:40px;
+  margin-top:1px;
+}
+
+#body{
+  height:100%;
+  max-height:100%;
+  width:100%;
+  max-width:100%;
+}
+
+#container{
+  background-color:rgba(245,245,220,0.37);
+
+}
+
+#nav_col{
+  background-color:#2c3e50;
+}
+
+#instructions{
+  background-color:beige;
+  padding:2px;
+  margin-bottom:5px;
+}
+
+#app_form{
+  background-color:rgba(128,128,128,0.06);
+  padding:5px;
+  border-radius:2px;
+}
+
+#list_9{
+  color:#c61d1d;
+}
+
+#view_btn{
+  border-radius:10px;
+}
+
+#single_btn{
+  margin:5px;
+  border-radius:10px;
+}
+
+#status{
+  background-color:silver;
+  padding:5px;
+  border-radius:5px;
+}
+
+#login_col{
+  background-color:#2c3e50;
+  margin-top:150px;
+  padding:20px;
+  border-radius:10px;
+}
+
+#heading_log{
+  color:white;
+}
+
+div#logdiv{
+  padding:10px;
+}
+
+#body_login{
+  background-color:rgba(250,253,255,0.7);
+    padding: 30px;
+}
+

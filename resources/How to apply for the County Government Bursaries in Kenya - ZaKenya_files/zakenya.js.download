@@ -1,0 +1,207 @@
+/**
+ * @author Maitha Manyala
+ */
+
+//PHP file used to serve Ajax requests
+var ajax_url = 'data/server.php';
+
+/**
+ *Handles user authentication
+ */
+function UpdateInfo() {
+	$("#user_info").html(GetAlertInfo("Sending info..."));
+	var fullname = $("#fullname").val();
+	var mpesano = $("#mpesano").val();
+
+	//load data
+	$.ajax({
+		type : "GET",
+		cache : false,
+		url : ajax_url,
+		data : {
+			action : "UpdateInfo",
+			fullname : fullname,
+			mpesano : mpesano
+		}
+	}).done(function(data) {
+		var obj = jQuery.parseJSON(data);
+		$("#user_info").html(obj.message);
+	});
+}
+
+function UpdatePassword() {
+	$("#password_info").html(GetAlertInfo("Sending info..."));
+	var password = $("#password").val();
+	var password1 = $("#password1").val();
+	var password2 = $("#password2").val();
+	//load data
+	$.ajax({
+		type : "GET",
+		cache : false,
+		url : ajax_url,
+		data : {
+			action : "UpdatePassword",
+			password : password,
+			password1 : password1,
+			password2 : password2
+		}
+	}).done(function(data) {
+		console.log(data);
+		var obj = jQuery.parseJSON(data);
+		$("#password_info").html(obj.message);
+	});
+}
+
+function SendMsg() {
+	$("#msg_info").html(GetAlertInfo("Sending message ..."));
+	var email_address = $("#email_address").val();
+	var message = $("#message").val();
+	//load data
+	$.ajax({
+		type : "GET",
+		cache : false,
+		url : ajax_url,
+		data : {
+			action : "SendMsg",
+			email_address : email_address,
+			message : message
+		}
+	}).done(function(data) {
+		$("#msg_info").html(data);
+	});
+}
+
+function ResetPassword() {
+	$("#msg_info").html(GetAlertInfo("Sending message ..."));
+	var email_address = $("#email_address").val();
+	//load data
+	$.ajax({
+		type : "GET",
+		cache : false,
+		url : ajax_url,
+		data : {
+			action : "ResetPassword",
+			email_address : email_address,
+		}
+	}).done(function(data) {
+		$("#msg_info").html(data);
+	});
+}
+
+function Reset() {
+	$("#msg_info").html(GetAlertInfo("Sending message ..."));
+	var password = $("#password").val();
+	var password1 = $("#password1").val();
+	var key = $("#skey").val();
+	//load data
+	$.ajax({
+		type : "GET",
+		cache : false,
+		url : ajax_url,
+		data : {
+			action : "Reset",
+			password : password,
+			password1 : password1,
+			key : key
+		}
+	}).done(function(data) {
+		$("#msg_info").html(data);
+	});
+}
+
+/**
+ * Gets error alert HTML
+ * @param String msg
+ */
+function GetErrorInfo(msg) {
+	var data = "<div class='alert alert-danger'>";
+	data += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+	data += msg;
+	data += "</div>";
+	return data;
+}
+
+/**
+ * Gets info alert HTML
+ * @param String msg
+ */
+function GetAlertInfo(msg) {
+	var data = "<div class='alert alert-info'>";
+	data += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+	data += msg;
+	data += "</div>";
+	return data;
+}
+
+function Pay() {
+	//get data
+	var user_id = $("#user_id").val();
+	var ref_no = $("#ref_no").val();
+	var amount = $("#amount").val();
+	var trans_date = $("#trans_date").val();
+
+	$("#message").html("Please wait, Sending data...");
+
+	//load data
+	$.ajax({
+		type : "GET",
+		cache : false,
+		url : ajax_url,
+		data : {
+			action : "Pay",
+			user_id : user_id,
+			ref_no : ref_no,
+			amount : amount,
+			trans_date : trans_date
+		}
+	}).done(function(data) {
+		console.log(data);
+		var obj = jQuery.parseJSON(data);
+		$("#message").html(obj.message);
+		if (obj.error == false) {
+			setTimeout(GetPaymentDialog(user_id), 3000);
+			$("#ref_no").val("");
+			$("#amount").val("");
+		}
+
+	});
+
+}
+
+function GetPaymentDialog(user_id) {
+
+	$("#full_name").html("");
+	$("#phone_number").val("");
+	$("#earned").html("");
+	$("#paid").html("");
+	$("#balance").html("");
+	$("#ref_no").html("");
+	$("#amount").html("");
+
+	$("#user_id").val(user_id);
+	$('#paymentModal').modal('show');
+	$("#message").html("Please wait, Getting data...");
+
+	//load data
+	$.ajax({
+		type : "GET",
+		cache : false,
+		url : ajax_url,
+		data : {
+			action : "GetPaymentProfile",
+			user_id : user_id
+		}
+	}).done(function(data) {
+		console.log(data);
+		var obj = jQuery.parseJSON(data);
+
+		$("#full_name").html(obj.full_name);
+		$("#phone_number").val(obj.phone_number);
+		$("#earned").html(obj.earned);
+		$("#paid").html(obj.paid);
+		$("#balance").html(obj.balance);
+		$("#message").html(obj.message);
+
+	});
+
+}
